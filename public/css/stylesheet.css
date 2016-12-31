@@ -1,0 +1,139 @@
+*{
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;	
+}
+html,body{
+	margin: 0;
+}
+hr{border-color:#ddd;}
+.nav-bar{
+	position:relative;
+	width:100%;
+	height:50px;
+	border-bottom:1px solid #ddd;
+	background: #eee;
+	margin-bottom: 10px;
+}
+.nav-bar .nav-container{
+	position: absolute;
+	top:0; left:50%; margin-left:-100px;
+}
+.nav-bar ul{
+	list-style-type: none;
+	margin:0; padding:0;
+}
+.nav-bar ul:after{
+	content:""; display: block; clear:both;
+}
+.nav-bar ul li{
+	float:left;
+	width:100px;
+	height:49px;
+}
+.nav-bar ul li a{
+	display:block;
+	text-decoration: none;
+	text-align: center;
+	line-height: 48px;
+	color:#333;
+	width:100%;
+	height:100%;
+}
+.nav-bar ul li.active a{
+	background: #e5e5e5;
+}
+.container{
+	margin:0 auto!important;
+	padding:10px;
+	width:90%;
+}
+.container:after{
+	content: "";
+	display: block;
+	clear:both;
+}
+
+
+.content_box{
+	float:left;
+	width:50%;
+	line-height: 150%;
+	background: #eee;
+}
+
+.content_box .logo{
+	position: relative;
+	margin-bottom: 10px;
+	height:60px;
+}
+.content_box[data-type=youtube] .logo{
+	background: #DE483C;
+}
+.content_box[data-type=twitch] .logo{
+	background: #6441A5;
+	padding-left:20px;
+}
+	.content_box .logo .view-type{
+		position: absolute;
+		top:0;
+		right:0;
+		width:100px;
+		height:60px;
+	}
+	.content_box .logo .view-type .view-type-btn{
+		width:100%;
+		height:30px;
+		color:#fff;
+		padding:2px 0px 1px 10px;
+		cursor: pointer;
+	}
+	.content_box[data-type=youtube] .logo .view-type .view-type-btn.active{
+		background: #D71616;
+	}
+	.content_box[data-type=twitch] .logo .view-type .view-type-btn.active{
+		background: #7353AE;
+	}
+.content_box .logo img{
+	display: inline-block;
+	height:100%;
+}
+
+.content_box article{
+	padding:0 10px;
+}
+
+.content_box a{
+	display: block;
+	margin-bottom:10px;
+	text-decoration: none;
+	color:#0080FF;
+	/*섬네일 속성*/
+	width:100%;
+	position:relative;
+	overflow: hidden;
+}
+.content_box a img{
+	width:0px;
+}
+.content_box a span{
+	word-break: break-all;
+}
+.content_box a .writer{
+	position: absolute; bottom:5px; right:10px;
+	background: #0080FF; color:#fff;
+	padding: 0 10px 2px;
+	display: none;
+}
+.content_box article[data-type=thumbnail] a img{
+	width:120px; height:90px;
+}
+.content_box article[data-type=thumbnail] a span{
+	left:130px; top:0px; position: absolute; 
+}
+.content_box article[data-type=thumbnail] a .writer{
+	display: block;
+}
+.content_box a:hover{
+	color:#58ACFA;
+}
