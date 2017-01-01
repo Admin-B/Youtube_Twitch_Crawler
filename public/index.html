@@ -8,13 +8,18 @@
 		<link href="./css/stylesheet.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
+		<!--
 		<nav class="nav-bar">
 			<ul class="nav-container">
 				<li class="active"><a href="#">설명</a></li>
 				<li><a href="#">후원</a></li>
 			</ul>
 		</nav>
+		-->
 		<section class="container">
+			<div>
+				<h3>리스트는 1분 마다 갱신됩니다.</h3>
+			</div>
 			<article class="content_box" data-type="youtube">
 				<div class="logo">
 					<img src="http://i.imgur.com/ASGE3z2.png">
@@ -35,8 +40,6 @@
 					</div>
 				</div>
 				<article class="video_list" data-type="thumbnail">
-				<a data-index='"+i+"' href='http://youtube.com/watch?v="+List.Y[i].id+"' target='blank'><img src='"+List.Y[i].img+"'><span>"+List.Y[i].title+"</span>
-				<div class="writer" style="">aaa</div></a>
 				</article>
 			</article>
 		</section>
@@ -45,18 +48,28 @@
 			var List;
 
 			$(document).ready(function(){
+				socket.emit("get_List");
+
+				var DOM_youtube=$(".content_box[data-type=youtube] article");
+				var DOM_twitch =$(".content_box[data-type=twitch] article");
+
 				socket.on("send_List",function(data){
 					//msg
 					List=data.msg;
-					if(List.Y.length==0 && List.T.length==0){
+					if(List.Y.length==0 || List.T.length==0){
 						socket.emit("get_List");
+						return;
 					}
-					var DOM_youtube=$(".content_box[data-type=youtube] article");
+					DOM_youtube.html("");
 					for(var i=0; i<List.Y.length; i++){
 						DOM_youtube.append("<a data-index='"+i+"' href='http://youtube.com/watch?v="+List.Y[i].id+"' target='blank'><img src='"+List.Y[i].img+"'><span>"+List.Y[i].title+"</span><div class='writer'>"+List.Y[i].user+"</div></a>");
 					}
+
+					DOM_twitch.html("");
+					for(var i=0; i<List.T.length; i++){
+						DOM_twitch.append("<a data-index='"+i+"' href='"+List.T[i].id+"' target='blank'><img src='"+List.T[i].img+"'><span>"+List.T[i].title+"</span><div class='writer'>"+List.T[i].user+"</div></a>");
+					}
 				});
-				socket.emit("get_List");
 
 				//UI
 				$(".view-type-btn").click(function(){
@@ -64,6 +77,9 @@
 					th.parent().parent().siblings(".video_list").attr("data-type",th.attr("data-type"));
 					th.siblings(".view-type-btn").removeClass("active");
 					th.addClass("active");
+				});
+				socket.on("update_List",function(){
+					socket.emit("get_List");
 				});
 			});
 		</script>
